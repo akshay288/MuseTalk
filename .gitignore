@@ -8,3 +8,6 @@ models
 results/
 data/audio/*.wav
 data/video/*.mp4
+ffmpeg-git-2024*
+tmp/
+configs/test
