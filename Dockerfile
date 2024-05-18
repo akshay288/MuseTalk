@@ -29,4 +29,4 @@ ENV FFMPEG_PATH /app/ffmpeg-git-20240504-amd64-static
 
 RUN curl -O https://vidai-docker-data-public.s3.us-west-2.amazonaws.com/models.tar && tar -xf models.tar && rm models.tar
 
-CMD [ "/bin/bash" ]
+CMD ["python3", "-u", "server.py"]
