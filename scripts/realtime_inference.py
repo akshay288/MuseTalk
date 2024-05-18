@@ -74,26 +74,26 @@ class Avatar:
     def init(self):
         if self.preparation:
             if os.path.exists(self.avatar_path):
-                response = input(f"{self.avatar_id} exists, Do you want to re-create it ? (y/n)")
-                if response.lower() == "y":
-                    shutil.rmtree(self.avatar_path)
-                    print("*********************************")
-                    print(f"  creating avator: {self.avatar_id}")
-                    print("*********************************")
-                    osmakedirs([self.avatar_path,self.full_imgs_path,self.video_out_path,self.mask_out_path])
-                    self.prepare_material()
-                else:
-                    self.input_latent_list_cycle = torch.load(self.latents_out_path)
-                    with open(self.coords_path, 'rb') as f:
-                        self.coord_list_cycle = pickle.load(f)
-                    input_img_list = glob.glob(os.path.join(self.full_imgs_path, '*.[jpJP][pnPN]*[gG]'))
-                    input_img_list = sorted(input_img_list, key=lambda x: int(os.path.splitext(os.path.basename(x))[0]))
-                    self.frame_list_cycle = read_imgs(input_img_list)
-                    with open(self.mask_coords_path, 'rb') as f:
-                        self.mask_coords_list_cycle = pickle.load(f)
-                    input_mask_list = glob.glob(os.path.join(self.mask_out_path, '*.[jpJP][pnPN]*[gG]'))
-                    input_mask_list = sorted(input_mask_list, key=lambda x: int(os.path.splitext(os.path.basename(x))[0]))
-                    self.mask_list_cycle = read_imgs(input_mask_list)
+                # response = input(f"{self.avatar_id} exists, Do you want to re-create it ? (y/n)")
+                # if response.lower() == "y":
+                #     shutil.rmtree(self.avatar_path)
+                #     print("*********************************")
+                #     print(f"  creating avator: {self.avatar_id}")
+                #     print("*********************************")
+                #     osmakedirs([self.avatar_path,self.full_imgs_path,self.video_out_path,self.mask_out_path])
+                #     self.prepare_material()
+                # else:
+                self.input_latent_list_cycle = torch.load(self.latents_out_path)
+                with open(self.coords_path, 'rb') as f:
+                    self.coord_list_cycle = pickle.load(f)
+                input_img_list = glob.glob(os.path.join(self.full_imgs_path, '*.[jpJP][pnPN]*[gG]'))
+                input_img_list = sorted(input_img_list, key=lambda x: int(os.path.splitext(os.path.basename(x))[0]))
+                self.frame_list_cycle = read_imgs(input_img_list)
+                with open(self.mask_coords_path, 'rb') as f:
+                    self.mask_coords_list_cycle = pickle.load(f)
+                input_mask_list = glob.glob(os.path.join(self.mask_out_path, '*.[jpJP][pnPN]*[gG]'))
+                input_mask_list = sorted(input_mask_list, key=lambda x: int(os.path.splitext(os.path.basename(x))[0]))
+                self.mask_list_cycle = read_imgs(input_mask_list)
             else:
                 print("*********************************")
                 print(f"  creating avator: {self.avatar_id}")
@@ -109,16 +109,16 @@ class Avatar:
                 avatar_info = json.load(f)
                 
             if avatar_info['bbox_shift'] != self.avatar_info['bbox_shift']:
-                response = input(f" 【bbox_shift】 is changed, you need to re-create it ! (c/continue)")
-                if response.lower() == "c":
-                    shutil.rmtree(self.avatar_path)
-                    print("*********************************")
-                    print(f"  creating avator: {self.avatar_id}")
-                    print("*********************************")
-                    osmakedirs([self.avatar_path,self.full_imgs_path,self.video_out_path,self.mask_out_path])
-                    self.prepare_material()
-                else:
-                    sys.exit()
+                # response = input(f" 【bbox_shift】 is changed, you need to re-create it ! (c/continue)")
+                # if response.lower() == "c":
+                shutil.rmtree(self.avatar_path)
+                print("*********************************")
+                print(f"  creating avator: {self.avatar_id}")
+                print("*********************************")
+                osmakedirs([self.avatar_path,self.full_imgs_path,self.video_out_path,self.mask_out_path])
+                self.prepare_material()
+                # else:
+                #     sys.exit()
             else:  
                 self.input_latent_list_cycle = torch.load(self.latents_out_path)
                 with open(self.coords_path, 'rb') as f:
