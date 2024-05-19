@@ -91,6 +91,14 @@ def handler(job):
         return { "error": "Must supply upload url" }
 
     job_id = str(uuid.uuid4())
+    print("--------------------------")
+    print(job_id)
+    print(upload_url)
+    print(video_path)
+    print(audio_path)
+    print(avatar_id)
+    print(bbox_shift)
+    print("--------------------------")
     run_script(job_id, upload_url, video_path, audio_path, avatar_id, bbox_shift)
 
     return { "success": True }

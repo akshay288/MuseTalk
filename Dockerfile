@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apt update
 
-RUN apt-get install -y python3 python3-pip curl ffmpeg libsm6 libxext6 -y
+RUN apt-get install -y python3 python3-pip curl ffmpeg libsm6 libxext6 sed -y
 RUN apt-get install -y git && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -29,5 +29,6 @@ RUN tar xf ffmpeg-git-amd64-static.tar.xz
 ENV FFMPEG_PATH /app/ffmpeg-git-20240504-amd64-static
 
 RUN curl -O https://vidai-docker-data-public.s3.us-west-2.amazonaws.com/models.tar && tar -xf models.tar && rm models.tar
+RUN sed -i '20s/.*/    # removed!/' /usr/local/lib/python3.10/dist-packages/mmpose/datasets/builder.py
 
 CMD ["python3", "-u", "server.py"]
