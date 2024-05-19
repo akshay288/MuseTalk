@@ -15,6 +15,7 @@ COPY assets assets
 COPY data data
 COPY configs configs
 COPY requirements.txt requirements.txt
+COPY server.py server.py
 
 RUN pip install -r requirements.txt
 RUN pip install --no-cache-dir -U openmim
