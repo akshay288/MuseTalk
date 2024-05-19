@@ -1,7 +1,0 @@
-{
-	"input": {
-		"video": "https://vidai-assets.s3.us-west-2.amazonaws.com/common/avatar/f093a357-aab4-44e4-b50a-8203a7b25f75/video_1280.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAZV6N4KO4HBYBB7DV%2F20240518%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240518T021545Z&X-Amz-Expires=21600&X-Amz-SignedHeaders=host&X-Amz-Signature=c97d7615bd38833638ca17044b8b7328f299fbb7c7e0dac3f090752bcb8055ed#t=0,2.8",
-		"audio": "https://vidai-assets.s3.us-west-2.amazonaws.com/tmp/aa0239f4-2cc6-4d9a-adcd-055667bce76b/0d65f871-94d0-496d-a234-67230285556a/5953134d-2b13-4d1c-98ed-f0512d14a81e/sound.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAZV6N4KO4HBYBB7DV%2F20240518%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240518T021539Z&X-Amz-Expires=21600&X-Amz-SignedHeaders=host&X-Amz-Signature=8dfdc6dab645e00ca8e7e36aac47f32d88d40d25b16c8adb00b7ad9b4c363300",
-		"avatar": "dea493a6-52bf-4c67-9ff2-64b8b2c63eb9"
-	}
-}
