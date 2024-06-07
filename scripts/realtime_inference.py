@@ -72,6 +72,11 @@ class Avatar:
         self.init()
         
     def init(self):
+        if os.path.exists(self.avatar_path) and not os.path.exists(self.full_imgs_path):
+            print("Regenerating images from video")
+            osmakedirs([self.full_imgs_path])
+            video2imgs(self.video_path, self.full_imgs_path, ext = 'png')
+            print("Done regenerating images from video")
         if self.preparation:
             if os.path.exists(self.avatar_path):
                 # response = input(f"{self.avatar_id} exists, Do you want to re-create it ? (y/n)")

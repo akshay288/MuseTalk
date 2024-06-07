@@ -171,10 +171,26 @@ def push_job():
         upload_to_s3(f"results/avatars/{avatarID}.tar", f"common/avatar/{avatarID}/pretrained/video_1280.tar")
 
 
+def download_job():
+    for avatar in tqdm(avatars):
+        avatar_id = avatar["ID"]
+        if not os.path.exists(f"./results/avatars/{avatar_id}"):
+            os.makedirs(f"./results/tmp/download", exist_ok=True)
+
+            tar_path = f"./results/tmp/download/{avatar_id}.tar"
+            S3_CLIENT.download_file(BUCKET_NAME, f"common/avatar/{avatar_id}/pretrained/video_1280.tar", tar_path)
+
+            subprocess.run(["tar", "-xf", tar_path, "-C", f"./results/tmp/download"])
+            subprocess.run(["cp", "-r", f"./results/tmp/download/results/avatars/{avatar_id}", f"./results/avatars/{avatar_id}"])
+            subprocess.run(["rm", "-rf", "./results/tmp/download"])
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "bundle":
         bundle_job()
     elif sys.argv[1] == "push":
         push_job()
+    elif sys.argv[1] == "download":
+        download_job()
     else:
         train_job()
