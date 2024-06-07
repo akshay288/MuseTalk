@@ -12,3 +12,4 @@ ffmpeg-git-2024*
 tmp/
 configs/test
 test_input.json
+.env

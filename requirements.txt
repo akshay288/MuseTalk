@@ -23,3 +23,7 @@ moviepy
 flask==3.0.3
 PyYAML==6.0.1
 runpod==1.6.2
+
+boto3
+python-dotenv
+tqdm

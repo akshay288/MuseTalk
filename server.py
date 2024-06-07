@@ -4,12 +4,14 @@ import subprocess
 import yaml
 import requests
 import runpod
+from timeit import default_timer
 
 
 UPLOAD_FOLDER = '/tmp/vidai-files'
 CONFIG_FOLDER = '/tmp/vidai-configs'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(CONFIG_FOLDER, exist_ok=True)
+os.makedirs("./results/avatars", exist_ok=True)
 
 
 def upload_file_to_s3(presigned_url, file_path):
@@ -28,9 +30,9 @@ def download_file(url, save_path):
             for chunk in response.iter_content(chunk_size=1024):
                 if chunk:
                     file.write(chunk)
-        print(f"Video downloaded successfully and saved to {save_path}")
+        print(f"File downloaded successfully and saved to {save_path}")
     else:
-        raise Exception(f"Failed to download video. HTTP status code: {response.status_code}")
+        raise Exception(f"Failed to download file. HTTP status code: {response.status_code}")
 
 
 def run_script(job_id, upload_url, video_path, audio_path, avatar_id, bbox_shift):
@@ -79,6 +81,7 @@ def handler(job):
     video_path = data.get("video")
     audio_path = data.get("audio")
     avatar_id = data.get("avatar")
+    avatar_pretrained = data.get("avatarPretrained")
     bbox_shift = data.get("bboxShift", 0)
 
     if not video_path:
@@ -97,8 +100,26 @@ def handler(job):
     print(video_path)
     print(audio_path)
     print(avatar_id)
+    print(avatar_pretrained)
     print(bbox_shift)
     print("--------------------------")
+
+    if not os.path.exists(f"./results/avatars/{avatar_id}") and avatar_pretrained:
+        print("downloading pretrained")
+        os.makedirs(f"./results/tmp/download", exist_ok=True)
+        tar_path = f"./results/tmp/download/{avatar_id}.tar"
+        start_download = default_timer()
+        download_file(avatar_pretrained, tar_path)
+        end_download = default_timer()
+
+        start_tar = default_timer()
+        subprocess.run(["tar", "-xf", tar_path, "-C", f"./results/tmp/download"])
+        subprocess.run(["cp", "-r", f"./results/tmp/download/results/avatars/{avatar_id}", f"./results/avatars/{avatar_id}"])
+        subprocess.run(["rm", "-rf", "./results/tmp/download"])
+        end_tar = default_timer()
+
+        print(f"done downloading pretrained - Download Time ({end_download - start_download}) Tar Time ({end_tar - start_tar})")
+
     run_script(job_id, upload_url, video_path, audio_path, avatar_id, bbox_shift)
 
     return { "success": True }
